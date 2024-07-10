@@ -105,16 +105,18 @@ function onChatMessage(data) {
         }
     }
 
-    //scrollToBottom()
+    scrollToBottom()
 }
 async function joinChatRoom(){
-
+    console.log('joinChatRoom')
     chatName = chatNameElement.value 
+    console.log('Join as:', chatName)
+    console.log('Room uuid:', chatRoomUuid)
     const data = new FormData()
     data.append('name',chatName)
     data.append('url', chatWindowUrl)
 
-    fetch(`/api/create-room/${chatRoomUuid}/`,{
+    await fetch(`/api/create-room/${chatRoomUuid}/`,{
         method:'POST',
         headers:{
             'X-CSRFToken':getCookie('csrftoken')
