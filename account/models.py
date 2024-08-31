@@ -31,16 +31,17 @@ class CustomUserManager(UserManager):
 class User(AbstractBaseUser, PermissionsMixin):
     AGENT = 'agent'
     MANAGER = 'manager'
-
+    USER = 'user'
     ROLES_CHOICES = (
         (AGENT, 'Agent'),
         (MANAGER, 'Manager'),
+        (USER, 'User'),
     )
     
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=255, blank=True, default='')
-    role = models.CharField(max_length=20, choices=ROLES_CHOICES, default=AGENT)
+    role = models.CharField(max_length=20, choices=ROLES_CHOICES, default=USER)
 
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)

@@ -28,7 +28,11 @@ class AddUserForm(forms.ModelForm):
                 'class': 'w-full py-4 px-6 rounded-xl border'
             })
         }
-
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(AddUserForm, self).__init__(*args, **kwargs)
+        if not (user and (user.is_authenticated and (user.has_perm('User.manager') or user.has_perm('User.agent')))):
+            self.fields.pop('role')  # Remove the role field if the user is not a manager or agent
 
 class EditUserForm(forms.ModelForm):
     class Meta:

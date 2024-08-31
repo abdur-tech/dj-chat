@@ -115,7 +115,7 @@ async function joinChatRoom(){
     const data = new FormData()
     data.append('name',chatName)
     data.append('url', chatWindowUrl)
-
+    console.log(getCookie('csrftoken'))
     await fetch(`/api/create-room/${chatRoomUuid}/`,{
         method:'POST',
         headers:{
@@ -124,12 +124,14 @@ async function joinChatRoom(){
         body:data
     })
     .then(function(res){
+        console.log(getCookie('csrftoken'))
+        console.log('advsdv')
         return res.json()
     })
     .then(function(data){
         console.log("completed")
     })
-
+    
     chatSocket = new WebSocket(`ws://${window.location.host}/ws/${chatRoomUuid}/`)
 
     chatSocket.onmessage = function(e){
@@ -166,3 +168,10 @@ chatSubmitElement.onclick = function(e) {
     return false
 }
 
+document.getElementById('logout-link').addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default link behavior
+    var confirmed = confirm("Are you sure you want to log out?");
+    if (confirmed) {
+        window.location.href = this.href; // Proceed with the logout if confirmed
+    }
+});

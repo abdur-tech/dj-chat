@@ -15,6 +15,7 @@ from .models import Room
 
 @require_POST
 def create_room(request, uuid):
+    print(request)
     name = request.POST.get('name', '')
     url = request.POST.get('url', '')
 
@@ -105,7 +106,7 @@ def edit_user(request, uuid):
 def add_user(request):
     if request.user.has_perm('user.add_user'):
         if request.method == 'POST':
-            form = AddUserForm(request.POST)
+            form = AddUserForm(request.POST,user=request.user)
 
             if form.is_valid():
                 user = form.save(commit=False)
@@ -121,7 +122,7 @@ def add_user(request):
 
                 return redirect('/chat-admin/')
         else:
-            form = AddUserForm()
+            form = AddUserForm(user=request.user)
 
         return render(request, 'chat/add_user.html', {
             'form': form
