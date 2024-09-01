@@ -1,4 +1,3 @@
 # build_files.sh
 
-python -m pip install -r requirements.txt
-python manage.py collectstatic --noinput
+python3.9 -m pip install -r requirements.txt

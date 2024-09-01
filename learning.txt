@@ -1,0 +1,7 @@
+1) html
+2) css
+3) javascript
+4) tailwindcss
+5) django custom user
+6) django channels
+7) asgiref
